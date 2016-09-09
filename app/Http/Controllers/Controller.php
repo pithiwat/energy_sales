@@ -57,11 +57,66 @@ class Controller extends BaseController
             $vpublic_pergroup[] = $qmain_pergroup->Public_Lightings;
         }
 //        print_r($vsmall_serv[0]);
+
+        $tariffs_group_list = ['บ้านอยู่อาศัย','กิจการขนาดเล็ก','กิจการขนาดกลาง','กิจการขนาดใหญ่','กิจการเฉพาะอย่าง','ส่วนราชการและองค์กรฯ',
+            'สูบน้ำเพื่อการ เกษตร','ไฟชั่วคราว','หน่วยขายไม่รวมไฟสาธารณะ','ไฟสาธารณะ','หน่วยขายรวมไฟสาธารณะ'];
+        $month_list = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+//print_r($sqlyear);
+        if(!isset($GetYear)){
+            $GetYear = $drop_year[0];
+        }else{
+            $GetYear = $GetYear;
+        }
+        if(!isset($GetMonth)){
+            $GetMonth  = 'all';
+        }else{
+            $GetMonth  = $GetMonth;
+        }
+
+        $vdata_pergroup = array();
+        for($i=0;$i<count($vmonth_name_pergroup);$i++){
+            for($j=0;$j<count($month_list);$j++){
+                if($vmonth_name_pergroup[$i] == $month_list[$j]){
+                    if(!isset($GetGroup)){
+                        $GetGroup = $tariffs_group_list[0];
+                    }else{
+                        $GetGroup = $GetGroup;
+                    }
+                    $vmonth_data[$j] = $vmonth_pergroup[$i];
+                    if($GetGroup == $tariffs_group_list[0]){
+                        $vdata_pergroup[$j] = $vresident_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[1]){
+                        $vdata_pergroup[$j] = $vsmall_serv_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[2]){
+                        $vdata_pergroup[$j] = $vmed_serv_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[3]){
+                        $vdata_pergroup[$j] = $vlarg_serv_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[4]){
+                        $vdata_pergroup[$j] = $vspec_serv_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[5]){
+                        $vdata_pergroup[$j] = $vgov_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[6]){
+                        $vdata_pergroup[$j] = $vagic_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[7]){
+                        $vdata_pergroup[$j] = $vtemp_tariff_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[8]){
+                        $vdata_pergroup[$j] = $vresident_pergroup[$i]+$vsmall_serv_pergroup[$i]+$vmed_serv_pergroup[$i]+$vlarg_serv_pergroup[$i]+$vspec_serv_pergroup[$i]+$vgov_pergroup[$i]+$vagic_pergroup[$i]+$vtemp_tariff_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[9]){
+                        $vdata_pergroup[$j] = $vpublic_pergroup[$i];
+                    }if($GetGroup == $tariffs_group_list[10]){
+                        $vdata_pergroup[$j] = $vresident_pergroup[$i]+$vsmall_serv_pergroup[$i]+$vmed_serv_pergroup[$i]+$vlarg_serv_pergroup[$i]+$vspec_serv_pergroup[$i]+$vgov_pergroup[$i]+$vagic_pergroup[$i]+$vtemp_tariff_pergroup[$i]+$vpublic_pergroup[$i];
+                    }
+                }
+            }
+        }
+
         return view('index', ['GetYear' => $GetYear, 'GetMonth' => $GetMonth, 'GetGroup' => $GetGroup, 'drop_year' => $drop_year, 'drop_month' => $drop_month, 'drop_month' => $drop_month, 'vyear_pergroup' => $vyear_pergroup, 'vmonth_pergroup' => $vmonth_pergroup, 'vmonth_name_pergroup' => $vmonth_name_pergroup
             , 'vresident_pergroup' => $vresident_pergroup, 'vsmall_serv_pergroup' => $vsmall_serv_pergroup, 'vmed_serv_pergroup' => $vmed_serv_pergroup, 'vlarg_serv_pergroup' => $vlarg_serv_pergroup, 'vspec_serv_pergroup' => $vspec_serv_pergroup, 'vgov_pergroup' => $vgov_pergroup
             , 'vagic_pergroup' => $vagic_pergroup, 'vtemp_tariff_pergroup' => $vtemp_tariff_pergroup, 'vpublic_pergroup' => $vpublic_pergroup
             , 'vyear' => $vyear, 'vmonth' => $vmonth, 'vmonth_name' => $vmonth_name, 'vresident' => $vresident, 'vsmall_serv' => $vsmall_serv, 'vmed_serv' => $vmed_serv, 'vlarg_serv' => $vlarg_serv
-            , 'vspec_serv' => $vspec_serv, 'vgov' => $vgov, 'vagic' => $vagic, 'vtemp_tariff' => $vtemp_tariff, 'vpublic' => $vpublic]);
+            , 'vspec_serv' => $vspec_serv, 'vgov' => $vgov, 'vagic' => $vagic, 'vtemp_tariff' => $vtemp_tariff, 'vpublic' => $vpublic
+            , 'vdata_pergroup' => $vdata_pergroup, 'tariffs_group_list' => $tariffs_group_list, 'month_list' => $month_list, 'vmonth_data' => $vmonth_data]);
 
     }
 }

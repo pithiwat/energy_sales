@@ -1,107 +1,7 @@
-<?php
-use Illuminate\Html\HtmlFacade;
+@extends('layouts.app')
 
-$tariffs_group_list = ['บ้านอยู่อาศัย','กิจการขนาดเล็ก','กิจการขนาดกลาง','กิจการขนาดใหญ่','กิจการเฉพาะอย่าง','ส่วนราชการและองค์กรฯ',
-        'สูบน้ำเพื่อการ เกษตร','ไฟชั่วคราว','หน่วยขายไม่รวมไฟสาธารณะ','ไฟสาธารณะ','หน่วยขายรวมไฟสาธารณะ'];
-$month_list = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+@section('content')
 
-//print_r($sqlyear);
-if(!isset($GetYear)){
-    $GetYear = $drop_year[0];
-}else{
-    $GetYear = $GetYear;
-}
-if(!isset($GetMonth)){
-    $GetMonth  = 'all';
-}else{
-    $GetMonth  = $GetMonth;
-}
-
-$vdata_pergroup = array();
-for($i=0;$i<count($vmonth_name_pergroup);$i++){
-    for($j=0;$j<count($month_list);$j++){
-        if($vmonth_name_pergroup[$i] == $month_list[$j]){
-            if(!isset($GetGroup)){
-                $GetGroup = $tariffs_group_list[0];
-            }else{
-                $GetGroup = $GetGroup;
-            }
-            $vmonth_data[$j] = $vmonth_pergroup[$i];
-            if($GetGroup == $tariffs_group_list[0]){
-                $vdata_pergroup[$j] = $vresident_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[1]){
-                $vdata_pergroup[$j] = $vsmall_serv_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[2]){
-                $vdata_pergroup[$j] = $vmed_serv_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[3]){
-                $vdata_pergroup[$j] = $vlarg_serv_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[4]){
-                $vdata_pergroup[$j] = $vspec_serv_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[5]){
-                $vdata_pergroup[$j] = $vgov_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[6]){
-                $vdata_pergroup[$j] = $vagic_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[7]){
-                $vdata_pergroup[$j] = $vtemp_tariff_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[8]){
-                $vdata_pergroup[$j] = $vresident_pergroup[$i]+$vsmall_serv_pergroup[$i]+$vmed_serv_pergroup[$i]+$vlarg_serv_pergroup[$i]+$vspec_serv_pergroup[$i]+$vgov_pergroup[$i]+$vagic_pergroup[$i]+$vtemp_tariff_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[9]){
-                $vdata_pergroup[$j] = $vpublic_pergroup[$i];
-            }if($GetGroup == $tariffs_group_list[10]){
-                $vdata_pergroup[$j] = $vresident_pergroup[$i]+$vsmall_serv_pergroup[$i]+$vmed_serv_pergroup[$i]+$vlarg_serv_pergroup[$i]+$vspec_serv_pergroup[$i]+$vgov_pergroup[$i]+$vagic_pergroup[$i]+$vtemp_tariff_pergroup[$i]+$vpublic_pergroup[$i];
-            }
-        }
-    }
-}
-
-?>
-
-
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Language" content="th">
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-874">
-    <meta http-equiv="Content-Type" content="text/html; charset=tis-620">
-    <title>Index</title>
-
-    {!!Html::script('amcharts/amcharts.js')!!}
-    {!!Html::script('amcharts/serial.js')!!}
-    {!!Html::script('amcharts/pie.js')!!}
-    {!!Html::script('amcharts/themes/light.js')!!}
-    {!!Html::script('amcharts/plugins/export/export.js')!!}
-    {!!Html::style('amcharts/plugins/export/export.css')!!}
-    {!!Html::script('js/jquery.min.js')!!}
-    {!!Html::style('css/animate.css')!!}
-
-
-
-    <style type="text/css">
-        body {
-            background-image: url({{ URL::asset('amcharts/patterns/yellow_pastel_pattern.jpg')}});
-        }
-        #chartdiv,#chartdiv2 {
-            width       : 100%;
-            height            : 500px;
-            font-size   : 11px;
-        }
-        #chartdiv3 {
-            width       : 100%;
-            height            : 435px;
-            font-size   : 11px;
-        }
-        .amcharts-export-menu-top-right {
-            top: 10px;
-            right: 0;
-        }
-
-    </style>
-
-</head>
-
-<body>
 <div class="container">
     <div name= 'dropdown' style='padding:20px;'>
         ปี :
@@ -363,11 +263,7 @@ for($i=0;$i<count($vmonth_name_pergroup);$i++){
             chart.validateNow();
         } );
     </script>
-    {!!Html::script('js/wow.min.js')!!}
-    <script> new WOW().init(); </script>
-
 </div>
-</body>
-</html>
+@endsection
 
 
