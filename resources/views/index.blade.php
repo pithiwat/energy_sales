@@ -23,8 +23,9 @@
             var YEAR = document.getElementById('YEAR').value;
             var MONTH = document.getElementById('MONTH').value;
             var GROUP = document.getElementById('GROUP').value;
+            window.location.href = {!! json_encode(URL('/')) !!} +"/index?" + 'YEAR=' + YEAR + "&MONTH=" + MONTH + "&GROUP=" + GROUP;
             {{--window.location.href = {!! json_encode(URL('/')) !!} +"/test/" + YEAR + "/" + MONTH;--}}
-            window.location.href = {!! json_encode(URL('/')) !!} +"/index/" + YEAR + "/" + MONTH + "/" + GROUP;
+            {{--window.location.href = {!! json_encode(URL('/')) !!} +"/index/" + YEAR + "/" + MONTH + "/" + GROUP;--}}
         }
     </script>
 
